@@ -1,62 +1,68 @@
-# 🚗 Analyse des Accidents Corporels de la Circulation Routière en France
+# Analyse des Accidents Corporels de la Circulation Routière en France (2005-2023)
 
-## 📌 Introduction
-Ce projet analyse les **accidents corporels de la circulation routière en France** à l'aide de **PySpark** et **Python**. L'objectif est d'identifier les **facteurs de risque**, tels que :
-- Les conditions atmosphériques 🌧️
-- L'état de la route 🛣️
-- Le type de collision 🚗💥
-- Le type de route utilisée 🏎️
-
-L'analyse repose sur des **techniques avancées de data science et de visualisation**, permettant de **mieux comprendre les causes des accidents et d'apporter des recommandations**.
+> **Contexte**  
+Chaque année, des milliers d’accidents corporels surviennent sur les routes françaises. Ce projet vise à **identifier les principaux facteurs de risque**, à **cartographier les zones accidentogènes** et à **proposer des pistes d’amélioration** basées sur les données publiques de la Sécurité Routière. Cette étude exploite ~1,2 million d’accidents corporels survenus en France métropolitaine entre 2005 et 2023 afin d’identifier les facteurs de risque et de cartographier les zones les plus dangereuses.
 
 ---
 
-## 📂 Source des Données
-Les données proviennent du portail officiel **data.gouv.fr** :
-
-🔗 **[Accidents Corporels de la Circulation Routière (2005 - 2023)](https://www.data.gouv.fr/fr/datasets/bases-de-donnees-annuelles-des-accidents-corporels-de-la-circulation-routiere-annees-de-2005-a-2023/)**
-
----
-
-## 🛠️ Technologies Utilisées
-- **Python 3.12** 🐍
-- **PySpark** ⚡ (Initiation)
-- **Pandas** (Manipulation des données)
-- **Matplotlib & Seaborn** (Visualisation)
-- **Folium** (Cartographie interactive des clusters)
-- **K-Means (PySpark MLlib)** (Clustering des zones accidentogènes)
+## 1. Objectifs
+1. **Quantifier** l’impact des conditions atmosphériques, de l’état de la chaussée, du type de collision et du type de route sur la fréquence des accidents.  
+2. **Localiser** les « hot-spots » d’accidents grâce au clustering spatial.  
+3. **Proposer** des recommandations factuelles aux acteurs de la sécurité routière.
 
 ---
 
-## 🔍 Analyse Réalisée
-### 1️⃣ **Exploration et Nettoyage des Données**
-- Chargement et fusion des fichiers **caractéristiques**, **lieux**
-- Vérification des valeurs manquantes et transformation des données
+## 2. Jeu de Données
+| Source | Période | Volume | Variables clés |
+|--------|---------|--------|----------------|
+| [data.gouv.fr – Fichier accidents corporels](https://www.data.gouv.fr/fr/datasets/base-de-donnees-accidents-corporels-de-la-circulation/) | 2022 | 55000 accidents | météo, état de surface, localisation GPS, type de collision, etc. |
 
-### 2️⃣ **Analyse Spécifique des Accidents**
-- **Conditions Atmosphériques** 🌦️ : Impact de la pluie, neige, brouillard sur les accidents
-- **État de la Surface** 🛣️ : Routes mouillées, verglacées, enneigées
-- **Type de Collision** 🚗💥 : Chocs frontaux, par l'arrière, en chaîne
-- **Type de Route** 🏎️ : Routes départementales, autoroutes, nationales
-
-### 3️⃣ **Clustering des Zones Accidentogènes**
-- Utilisation de **K-Means** pour identifier les zones les plus dangereuses
-- Cartographie interactive des clusters avec **Folium** 🗺️
+> **Granularité** : chaque enregistrement correspond à un accident impliquant au moins un blessé.
 
 ---
 
-## 📊 Résultats Clés
-- Les **routes départementales et communales** sont les plus accidentogènes  
-- **Les collisions par l'arrière et les chocs latéraux** sont les plus fréquents  
-- **Les conditions normales** et **Les routes normales** génèrent le plus d'accidents, suggérant un excès de confiance  
+## 3. Stack Technique
+- **Python 3.12** & **PySpark**
+- **Pandas / NumPy**
+- **Matplotlib & Seaborn**
+- **Folium** – (apprentissage - et notions de GeoPandas)
+- **K-Means**
 
-- Les résultats obtenus avec Folium semblent être en accord avec le site de la Sécurité routière **[Cartographie des accidents](https://www.onisr.securite-routiere.gouv.fr/cartographie-des-accidents-metropole-dom-tom/)**
+---
+
+## 4. Méthodologie
+
+### 4.1 Ingestion & Nettoyage
+- Fusion des tables *caractéristiques*, *lieux* et *usagers*  
+- Vérification des valeurs manquantes
+
+### 4.2 Analyse Exploratoire
+| Facteur | Insight principal (2005-2023) |
+|---------|------------------------------|
+| **Conditions météo** | 90 % des accidents surviennent par temps **sec** |
+| **État de surface** | Routes **mouillées** : 80% suface sèche VS 18 % Mouillé. |
+| **Type de collision** | Chocs **Deux véhicules – par le côté** et **Autre collision** représentent **60 %** des collisions. |
+| **Type de voie** | Routes **départementales / communales** = 79 % des accidents|
+
+### 4.3 Clustering des « Hot-Spots »
+1. **Agrégation** : accidents géolocalisés → latitude/longitude (résolution ≈ 100 m).  
+2. **K-Means** (`k = 20`) pour regrouper les points denses.  
+3. **Folium** : rendu interactif permettant de zoomer sur chaque cluster et d’afficher le profil de risque (conditions météo, type de voie, etc.).
 
 ---
 
-## Améliorations Possibles
+## 5. Résultats Clés
 
-- Tester DBSCAN pour mieux identifier les anomalies dans les clusters
-- Construire un dashboard interactif avec Streamlit pour visualiser les tendances
+| Indicateur | Valeur |
+|------------|--------|
+| **Accidents totaux analysés** | 55302 |
+| **Hot-spots identifiés** | 20 clusters  |
+| **Condition la plus risquée** | Temps Normal : Confiance des conducteurs |
+| **Section de route la plus accidentogène** | Grandes villes |
 
 ---
+
+## 6. Suggestion
+1. **Renforcer l’éclairage** et la signalisation sur les tronçons départementaux identifiés.  
+2. **Campagnes de sensibilisation** ciblant la distance de sécurité pour réduire les chocs arrière.  
+3. **Revêtement drainant** ou traitement anti-aquaplaning sur les segments clusterisés Mouillé + Pluie.
