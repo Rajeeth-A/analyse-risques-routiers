@@ -1,7 +1,7 @@
-# Analyse des Accidents Corporels de la Circulation Routière en France (2005-2023)
+# Analyse des Accidents Corporels de la Circulation Routière en France (2022)
 
 > **Contexte**  
-Chaque année, des milliers d’accidents corporels surviennent sur les routes françaises. Ce projet vise à **identifier les principaux facteurs de risque**, à **cartographier les zones accidentogènes** et à **proposer des pistes d’amélioration** basées sur les données publiques de la Sécurité Routière. Cette étude exploite ~1,2 million d’accidents corporels survenus en France métropolitaine entre 2005 et 2023 afin d’identifier les facteurs de risque et de cartographier les zones les plus dangereuses.
+Chaque année, des milliers d’accidents corporels surviennent sur les routes françaises. Ce projet vise à **identifier les principaux facteurs de risque**, à **cartographier les zones accidentogènes** et à **proposer des pistes d’amélioration** basées sur les données publiques de la Sécurité Routière. Cette étude exploite ~1,2 million d’accidents corporels survenus en France métropolitaine en 2022 afin d’identifier les facteurs de risque et de cartographier les zones les plus dangereuses.
 
 ---
 
@@ -37,7 +37,7 @@ Chaque année, des milliers d’accidents corporels surviennent sur les routes f
 - Vérification des valeurs manquantes
 
 ### 4.2 Analyse Exploratoire
-| Facteur | Insight principal (2005-2023) |
+| Facteur | Insight principal (2022) |
 |---------|------------------------------|
 | **Conditions météo** | 90 % des accidents surviennent par temps **sec** |
 | **État de surface** | Routes **mouillées** : 80% suface sèche VS 18 % Mouillé. |
